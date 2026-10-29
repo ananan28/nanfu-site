@@ -5,7 +5,7 @@ window.NANFU_CONFIG = {
   TURNSTILE_SITE_KEY: "0x4AAAAAAFqgAJ8idAyZUYOc",
   VERSION: "0.1.0-beta.70",
   FILES: [
-    { id: "win-x64", label: "Windows 10 / 11", meta: "x64 安装包 · .msi", url: "" },
+    { id: "win-x64", label: "Windows 10 / 11", meta: "x64 安装包 · .exe", url: "" },
     { id: "mac-arm", label: "macOS · Apple 芯片", meta: "M1/M2/M3 · .dmg", url: "" },
     { id: "mac-intel", label: "macOS · Intel", meta: "x86_64 · .dmg", url: "" }
   ]
