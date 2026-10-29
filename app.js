@@ -434,7 +434,7 @@
             turnstileActive = false;
             turnstileToken = "";
             turnstileReady = false;
-            elTurnstile.innerHTML = "";
+            elTurnstile.hidden = true;
           },
           "expired-callback": function () {
             turnstileActive = false;
