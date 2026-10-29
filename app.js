@@ -308,6 +308,7 @@
     elAccount.textContent = (session.user && session.user.email) || "已登录";
     renderFiles();
     await bindSelfJoin();
+    if (session !== sess || shownToken !== token) return;
     loadQuota();
     loadReleases(session);
   }
