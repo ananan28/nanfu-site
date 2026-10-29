@@ -18,6 +18,7 @@
   var turnstileWidgetId = null;
   var releases = {};
   var releaseToken = null;
+  var shownToken = null;
   var currentVersion = cfg.VERSION || "";
 
   function say(text, kind) {
@@ -288,6 +289,9 @@
 
   async function showSession(sess) {
     session = sess || null;
+    var token = session ? (session.access_token || session.user && session.user.id || "auth") : "";
+    if (token === shownToken) return;
+    shownToken = token;
     if (!session) {
       releaseToken = null;
       releases = {};
@@ -393,7 +397,7 @@
   });
 
   elLogout.addEventListener("click", async function () {
-    await sb.auth.signOut();
+    try { await sb.auth.signOut(); } catch (e) { /* 即使网络失败也回到未登录界面 */ }
     elEmail.value = "";
     elPassword.value = "";
     releaseToken = null;
@@ -456,6 +460,8 @@
 
   sb.auth.getSession().then(function (r) {
     showSession(r.data ? r.data.session : null);
+  }).catch(function () {
+    showSession(null);
   });
 
   sb.auth.onAuthStateChange(function (_evt, sess) {
