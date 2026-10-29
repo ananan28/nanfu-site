@@ -11,6 +11,7 @@
 
   var mode = "login";
   var turnstileToken = "";
+  var turnstileActive = false;
 
   function say(text, kind) {
     elStatus.textContent = text || "";
@@ -118,7 +119,7 @@
     var password = elPassword.value;
     if (!email || !password) { say("请填写邮箱和密码。", "err"); return; }
     if (mode === "signup" && password.length < 6) { say("密码至少 6 位。", "err"); return; }
-    if (elTurnstile && elTurnstile.childElementCount && !turnstileToken) {
+    if (turnstileActive && !turnstileToken) {
       say("请先完成人机验证。", "err");
       return;
     }
@@ -185,7 +186,15 @@
       window.turnstile.render(elTurnstile, {
         sitekey: cfg.TURNSTILE_SITE_KEY,
         theme: "dark",
-        callback: function (token) { turnstileToken = token; }
+        callback: function (token) {
+          turnstileToken = token;
+          turnstileActive = true;
+        },
+        "error-callback": function () {
+          turnstileActive = false;
+          turnstileToken = "";
+          elTurnstile.innerHTML = "";
+        }
       });
     };
     document.head.appendChild(s);
