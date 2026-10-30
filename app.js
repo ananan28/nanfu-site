@@ -143,12 +143,11 @@
         data: { url: f.url, version: currentVersion, fileName: "", size: 0, sha256: "" }
       };
     }
-    return { status: session ? "pending" : "none" };
+    return { status: "pending" };
   }
 
   function statusLabel(status) {
     if (status === "pending") return "正在获取安装包…";
-    if (status === "auth") return "登录并加入组织后可下载";
     if (status === "error") return "下载暂不可用，请稍后重试";
     return "内测中 · 暂未开放";
   }
@@ -212,13 +211,13 @@
     if (elFileNote) elFileNote.hidden = !(files.length === 0 || allNone);
   }
 
-  function requestRelease(f, accessToken) {
+  function requestRelease(f) {
     var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, 15000) : null;
 
     return fetch(functionUrl("nanfu-release"), {
       method: "POST",
-      headers: requestHeaders(accessToken),
+      headers: requestHeaders(""),
       body: JSON.stringify({ action: "download", platform: f.id }),
       signal: controller ? controller.signal : undefined
     }).then(function (res) {
@@ -228,9 +227,6 @@
         }
         if (res.status === 404 && body && body.code === "no_release") {
           return { status: "none" };
-        }
-        if (res.status === 401 || res.status === 403) {
-          return { status: "auth" };
         }
         return { status: "error" };
       });
@@ -242,12 +238,11 @@
     });
   }
 
-  function loadReleases(sess) {
+  function loadReleases() {
     var files = cfg.FILES || [];
-    var token = sess && sess.access_token ? sess.access_token : "";
-    if (!token || releaseToken === token) return;
+    if (releaseToken === "public") return;
 
-    releaseToken = token;
+    releaseToken = "public";
     files.forEach(function (f) {
       if (releases[f.id] && releases[f.id].status === "ok") return;
       releases[f.id] = { status: "pending" };
@@ -255,8 +250,7 @@
     renderFiles();
 
     Promise.all(files.map(function (f) {
-      return requestRelease(f, token).then(function (result) {
-        if (releaseToken !== token) return;
+      return requestRelease(f).then(function (result) {
         releases[f.id] = result;
         if (result.status === "ok" && result.data.version) setVersion(result.data.version);
         renderFiles();
@@ -292,25 +286,23 @@
     var token = session ? (session.access_token || session.user && session.user.id || "auth") : "";
     if (token === shownToken) return;
     shownToken = token;
+    elBoot.hidden = true;
+    elDownloads.hidden = false;
+    loadReleases();
+    var box = $("account-box");
     if (!session) {
-      releaseToken = null;
-      releases = {};
-      elBoot.hidden = true;
-      elAuth.hidden = false;
-      elDownloads.hidden = true;
-      setVersion(cfg.VERSION);
+      box.hidden = true;
+      elQuota.hidden = true;
       renderFiles();
       return;
     }
-    elBoot.hidden = true;
     elAuth.hidden = true;
-    elDownloads.hidden = false;
+    box.hidden = false;
     elAccount.textContent = (session.user && session.user.email) || "已登录";
     renderFiles();
     await bindSelfJoin();
     if (session !== sess || shownToken !== token) return;
     loadQuota();
-    loadReleases(session);
   }
 
   function resetTurnstile() {
@@ -401,8 +393,6 @@
     try { await sb.auth.signOut(); } catch (e) { /* 即使网络失败也回到未登录界面 */ }
     elEmail.value = "";
     elPassword.value = "";
-    releaseToken = null;
-    releases = {};
     showSession(null);
     setMode("login");
   });
@@ -458,6 +448,20 @@
   setVersion(cfg.VERSION);
   mountTurnstile();
   setMode("login");
+  elBoot.hidden = true;
+  elDownloads.hidden = false;
+  renderFiles();
+  loadReleases();
+
+  $("toggle-auth").addEventListener("click", function () {
+    if (elAuth.hidden) {
+      elAuth.hidden = false;
+      setMode("signup");
+      elAuth.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      elAuth.hidden = true;
+    }
+  });
 
   sb.auth.getSession().then(function (r) {
     showSession(r.data ? r.data.session : null);

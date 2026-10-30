@@ -151,12 +151,17 @@
       <div class="access-head">
         <div>
           <p class="section-kicker">DOWNLOAD</p>
-          <h2 class="section-title">登录后下载</h2>
-          <p class="section-sub">安装包按系统区分，登录后自动显示可用版本。</p>
+          <h2 class="section-title">直接下载</h2>
+          <p class="section-sub">选好系统就能下，不需要注册。注册只是为了让客户端能登录、创建窗口。</p>
         </div>
         <div class="access-badges">
           <span>Windows 10 / 11</span><span>macOS 12+</span><span>Chromium 内核</span>
         </div>
+      </div>
+
+      <div class="access-actions">
+        <p class="muted">下载完全免费，无需账号；安装后用管理员分配的登录名直接登录。</p>
+        <button id="toggle-auth" class="secondary" type="button">注册 / 登录</button>
       </div>
 
       <section id="auth" class="auth-layout" hidden aria-labelledby="auth-title">
@@ -172,8 +177,8 @@
 
         <div class="auth-panel">
           <p class="section-kicker">MEMBER ACCESS</p>
-          <h2 id="auth-title">登录后下载</h2>
-          <p class="muted">新用户注册即赠 <strong>20 个窗口</strong>，额度由管理员统一分配。</p>
+          <h2 id="auth-title">登录 / 注册</h2>
+          <p class="muted">注册即赠 <strong>20 个窗口</strong>，额度由管理员统一分配；已有账号可直接登录。</p>
 
           <div class="tabs" role="tablist">
             <button class="tab is-active" id="tab-login" role="tab" aria-selected="true" type="button">登录</button>
@@ -200,14 +205,14 @@
         </div>
       </section>
 
-      <section id="downloads" hidden aria-labelledby="dl-title">
+      <section id="downloads" aria-labelledby="dl-title">
         <div class="dl-heading">
           <div>
             <p class="section-kicker">DESKTOP CLIENT</p>
             <h2 id="dl-title">为你的电脑，选择南孚。</h2>
             <p class="dl-version">当前版本 <b id="dl-version">—</b></p>
           </div>
-          <div class="account">
+          <div class="account" id="account-box" hidden>
             <span class="account-dot" aria-hidden="true"></span>
             <span id="account-email"></span>
             <button id="logout" class="secondary" type="button">退出</button>
@@ -231,7 +236,7 @@
       <div class="faq">
         <details><summary>“窗口”是什么？</summary><p>一个窗口就是一套独立的浏览器环境，相当于一台虚拟出来的干净电脑。你开多少个窗口，就能同时管理多少个账号。</p></details>
         <details><summary>注册送的 20 个窗口会过期吗？</summary><p>不会。额度长期有效，用完可以找管理员增加。</p></details>
-        <details><summary>为什么下载要先登录？</summary><p>安装包按账号版本发放，登录后系统会显示与你账号匹配的版本；也方便后续推送更新。</p></details>
+        <details><summary>下载需要注册吗？</summary><p>不需要。选好系统直接下载即可；注册只用于在客户端里登录、创建窗口和分配额度。</p></details>
         <details><summary>支持哪些系统？</summary><p>Windows 10 / 11（x64），macOS 12 及以上（Apple 芯片与 Intel 都有对应安装包）。</p></details>
         <details><summary>换电脑后环境还在吗？</summary><p>环境数据默认保存在本机，可以用环境导出功能整体迁移到新电脑。请勿在未备份时卸载。</p></details>
         <details><summary>以后会换域名吗？</summary><p>会。域名是入口，账号和数据都独立存放，换域名不影响已注册账号，只需重新从新地址登录。</p></details>
