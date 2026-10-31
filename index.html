@@ -1,255 +1,174 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0d1117">
-<title>南孚浏览器 · 多环境指纹浏览器下载中心</title>
-<meta name="description" content="南孚浏览器：每个窗口独立指纹、独立缓存、独立登录态。跨境电商、社媒矩阵、广告投放的多账号管理工具。注册即赠 20 个窗口。">
-<meta property="og:title" content="南孚浏览器 · 一个浏览器，管理所有账号">
-<meta property="og:description" content="环境隔离、指纹防关联、多窗并发。注册即赠 20 个窗口。">
-<meta property="og:type" content="website">
-<link rel="stylesheet" href="./style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-<script src="./config.js"></script>
-<script src="./app.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>南孚浏览器</title>
+<style>
+  :root {
+    --primary: #2457D6;
+    --bg: #0d1220;
+    --card: #161d30;
+    --card-hover: #1c2540;
+    --text: #e8ecf6;
+    --muted: #9aa3bd;
+    --border: #242d48;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .hero {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 24px 40px;
+    text-align: center;
+  }
+  .logo-badge {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: clamp(40px, 7vw, 64px);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .tagline {
+    margin-top: 20px;
+    font-size: clamp(15px, 2.4vw, 18px);
+    color: var(--muted);
+  }
+  .tagline span { color: var(--text); }
+  .features {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .card:hover {
+    background: var(--card-hover);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+  }
+  .card .icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(36, 87, 214, .16);
+    color: #6d94f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .card h3 { font-size: 18px; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--muted); }
+  .download {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    text-align: center;
+  }
+  .download-card {
+    background: linear-gradient(135deg, #1a2a5e, #161d30);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 28px;
+  }
+  .version {
+    display: inline-block;
+    font-size: 13px;
+    color: #a8b6ff;
+    background: rgba(36, 87, 214, .18);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin-bottom: 18px;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 16px 44px;
+    border-radius: 12px;
+    transition: background .2s ease, transform .2s ease;
+    margin-top: 8px;
+  }
+  .btn:hover { background: #1c47b8; transform: translateY(-2px); }
+  .hint { margin-top: 16px; font-size: 13px; color: var(--muted); }
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
 </head>
 <body>
-<div class="shell">
-  <header class="nav">
-    <a class="brand" href="./" aria-label="南孚浏览器下载中心">
-      <span class="mark">孚</span>
-      <span>南孚<span class="brand-en">NANFU</span></span>
-    </a>
-    <nav class="nav-links" aria-label="页面导航">
-      <a href="#features">功能</a>
-      <a href="#scene">场景</a>
-      <a href="#quota">额度</a>
-      <a href="#faq">问题</a>
-    </nav>
-    <a class="nav-cta" href="#access">立即下载</a>
-  </header>
+  <div class="hero">
+    <div class="logo-badge">NANFU BROWSER</div>
+    <h1>南孚浏览器</h1>
+    <p class="tagline"><span>多账号指纹隔离</span> · 独立代理 · 云端环境无损转移 · 团队配额管理</p>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">MULTI-PROFILE BROWSER · 基于 Chromium</p>
-        <h1>一个浏览器，<br class="mobile-break">管理所有账号。</h1>
-        <p class="intro">每个窗口都是独立设备：独立指纹、独立缓存、独立登录态、独立代理。<br>几十个账号同时在线，彼此之间互不相识。</p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="#access">下载南孚 <span aria-hidden="true">↗</span></a>
-          <a class="btn-ghost" href="#features">看看能做什么</a>
-        </div>
-        <ul class="hero-stats">
-          <li><b>20</b><span>注册即送窗口</span></li>
-          <li><b>∞</b><span>管理员不限额</span></li>
-          <li><b>1</b><span>个内核管全部</span></li>
-        </ul>
-      </div>
+  <div class="features">
+    <div class="card">
+      <div class="icon">🛡️</div>
+      <h3>指纹隔离</h3>
+      <p>每个账号拥有独立浏览器指纹，多开互不关联，安全运营。</p>
+    </div>
+    <div class="card">
+      <div class="icon">🌐</div>
+      <h3>独立代理</h3>
+      <p>为每个环境绑定独立代理 IP，网络出口彼此隔离。</p>
+    </div>
+    <div class="card">
+      <div class="icon">☁️</div>
+      <h3>云端转移</h3>
+      <p>环境配置云端同步，换机无损迁移，即登即用。</p>
+    </div>
+    <div class="card">
+      <div class="icon">👥</div>
+      <h3>团队账号与配额</h3>
+      <p>多成员协同管理，灵活分配环境数量与使用配额。</p>
+    </div>
+  </div>
 
-      <div class="hero-visual" aria-hidden="true">
-        <div class="app-mock">
-          <div class="app-bar"><i></i><i></i><i></i><span>南孚 · 环境管理</span></div>
-          <div class="app-body">
-            <div class="mock-row">
-              <span class="dot on"></span>
-              <div><b>Amazon-US-01</b><small>Windows 11 · 美国 · 代理已连接</small></div>
-              <span class="tag-ok">运行中</span>
-            </div>
-            <div class="mock-row">
-              <span class="dot on"></span>
-              <div><b>Shopify-UK-03</b><small>macOS 14 · 英国 · 代理已连接</small></div>
-              <span class="tag-ok">运行中</span>
-            </div>
-            <div class="mock-row">
-              <span class="dot"></span>
-              <div><b>FB-Ads-DE-07</b><small>Windows 10 · 德国 · 未启动</small></div>
-              <span class="tag-idle">空闲</span>
-            </div>
-            <div class="mock-row ghost">
-              <span class="dot"></span>
-              <div><b>新建环境…</b><small>选系统、选地区、一键生成指纹</small></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="features" class="section">
-      <p class="section-kicker">CAPABILITIES</p>
-      <h2 class="section-title">不是多开标签页，是几十台“不同的电脑”</h2>
-      <p class="section-sub">账号被关联，往往不是因为内容，而是因为底层特征一致。南孚把这些特征拆开，一个窗口一套。</p>
-      <div class="feature-grid">
-        <article class="feature">
-          <span class="f-ico">◧</span>
-          <h3>环境级隔离</h3>
-          <p>Cookie、LocalStorage、缓存、历史记录全部独立存放，删除环境时一并清干净。</p>
-        </article>
-        <article class="feature">
-          <span class="f-ico">◈</span>
-          <h3>指纹防关联</h3>
-          <p>Canvas、WebGL、音频、字体、时区、语言、分辨率逐项可调，同站多号不会互相“认出”。</p>
-        </article>
-        <article class="feature">
-          <span class="f-ico">⇥</span>
-          <h3>多窗并发</h3>
-          <p>一次批量启动多个环境，每个窗口独立进程，一个崩了不影响其它。</p>
-        </article>
-        <article class="feature">
-          <span class="f-ico">⌁</span>
-          <h3>代理逐窗绑定</h3>
-          <p>HTTP / SOCKS5 按环境绑定，地区与时区自动对齐，减少“人在美国、时钟在中国”。</p>
-        </article>
-        <article class="feature">
-          <span class="f-ico">⇄</span>
-          <h3>环境导入导出</h3>
-          <p>整套环境打包迁移到另一台电脑，配置、代理、指纹一次带走。</p>
-        </article>
-        <article class="feature">
-          <span class="f-ico">◫</span>
-          <h3>团队与额度</h3>
-          <p>管理员建子账号、分配窗口数，成员只能看到自己的环境，数据互不可见。</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section steps">
-      <p class="section-kicker">HOW IT WORKS</p>
-      <h2 class="section-title">三步开始，不用学</h2>
-      <ol class="step-list">
-        <li><span>01</span><div><h3>注册账号</h3><p>邮箱或 Google 登录，自动获得 20 个免费窗口额度。</p></div></li>
-        <li><span>02</span><div><h3>新建环境</h3><p>选系统、选地区，指纹自动生成，也可以逐项手动改。</p></div></li>
-        <li><span>03</span><div><h3>启动窗口</h3><p>像普通浏览器一样登录账号，关掉再开，登录态还在。</p></div></li>
-      </ol>
-    </section>
-
-    <section id="scene" class="section">
-      <p class="section-kicker">USE CASES</p>
-      <h2 class="section-title">谁在用</h2>
-      <div class="scene-grid">
-        <div class="scene"><h3>跨境电商</h3><p>多店铺、多站点，同一台电脑管理几十个后台账号。</p></div>
-        <div class="scene"><h3>社媒矩阵</h3><p>多地区多账号同时在线，内容分发不受设备限制。</p></div>
-        <div class="scene"><h3>广告投放</h3><p>每个广告账户一套干净环境，避免互相牵连。</p></div>
-        <div class="scene"><h3>测试与验证</h3><p>模拟不同地区、不同设备，复现只在特定环境出现的问题。</p></div>
-      </div>
-    </section>
-
-    <section id="quota" class="section quota-block">
+  <div class="download">
+    <div class="download-card">
+      <div class="version">版本 0.1.0-beta.72 · Windows x64</div>
       <div>
-        <p class="section-kicker">QUOTA MODEL</p>
-        <h2 class="section-title">额度按人分配，不按次数计费</h2>
-        <p class="section-sub">没有充值、没有点数。谁能用多少窗口，由管理员说了算。</p>
+        <a class="btn" href="https://dl.xzckfn.eu.cc/nanfu/0.1.0-beta.72/win-x64/%E5%8D%97%E5%AD%9A%E6%B5%8F%E8%A7%88%E5%99%A8_0.1.0-beta.72_x64-setup.exe">立即下载</a>
       </div>
-      <div class="quota-cards">
-        <div class="qc"><span class="qc-role">所有者 / 管理员</span><b>不限窗口</b><p>可创建子账号、分配额度、查看全部环境。</p></div>
-        <div class="qc"><span class="qc-role">普通成员</span><b>管理员分配</b><p>只能看到自己的环境，额度用完找管理员加。</p></div>
-        <div class="qc highlight"><span class="qc-role">新注册</span><b>20 个窗口</b><p>注册即送，直接挂在管理员名下，随时可扩容。</p></div>
-      </div>
-    </section>
-
-    <section id="access" class="section access-block">
-      <div class="access-head">
-        <div>
-          <p class="section-kicker">DOWNLOAD</p>
-          <h2 class="section-title">直接下载</h2>
-          <p class="section-sub">选好系统就能下，不需要注册。注册只是为了让客户端能登录、创建窗口。</p>
-        </div>
-        <div class="access-badges">
-          <span>Windows 10 / 11</span><span>macOS 12+</span><span>Chromium 内核</span>
-        </div>
-      </div>
-
-      <div class="access-actions">
-        <p class="muted">下载完全免费，无需账号；安装后用管理员分配的登录名直接登录。</p>
-        <button id="toggle-auth" class="secondary" type="button">注册 / 登录</button>
-      </div>
-
-      <section id="auth" class="auth-layout" hidden aria-labelledby="auth-title">
-        <div class="auth-art" aria-hidden="true">
-          <div class="art-top"><span class="mini-mark">N</span><span>IDENTITY, SEPARATED</span></div>
-          <div class="cards">
-            <div class="card-mini"><span class="card-tag">环境 01</span><p>Windows · 美国</p><small>指纹独立</small></div>
-            <div class="card-mini alt"><span class="card-tag">环境 02</span><p>macOS · 新加坡</p><small>缓存独立</small></div>
-            <div class="card-mini"><span class="card-tag">环境 03</span><p>Windows · 德国</p><small>登录态独立</small></div>
-          </div>
-          <div class="art-bottom"><span>CHROMIUM CORE</span><span>↗</span></div>
-        </div>
-
-        <div class="auth-panel">
-          <p class="section-kicker">MEMBER ACCESS</p>
-          <h2 id="auth-title">登录 / 注册</h2>
-          <p class="muted">注册即赠 <strong>20 个窗口</strong>，额度由管理员统一分配；已有账号可直接登录。</p>
-
-          <div class="tabs" role="tablist">
-            <button class="tab is-active" id="tab-login" role="tab" aria-selected="true" type="button">登录</button>
-            <button class="tab" id="tab-signup" role="tab" aria-selected="false" type="button">注册</button>
-          </div>
-
-          <form id="auth-form" novalidate>
-            <label for="email">邮箱</label>
-            <input id="email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="you@example.com" autocapitalize="none" spellcheck="false">
-            <label for="password">密码</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required minlength="6" maxlength="128" placeholder="至少 6 位">
-            <div id="turnstile" class="turnstile"></div>
-            <button id="submit" class="primary" type="submit">登录下载 <span aria-hidden="true">↗</span></button>
-          </form>
-
-          <div class="divider"><span>或</span></div>
-
-          <button id="google" class="google" type="button">
-            <svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.9 2.6 30.4.5 24 .5 14.6.5 6.5 5.9 2.6 13.8l7.8 6.1C12.3 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-2.8-.4-4.1H24v8.4h12.5c-.3 2.1-1.6 5.2-4.6 7.3l7.6 5.9c4.5-4.2 6.6-10.3 6.6-17.5z"/><path fill="#FBBC05" d="M10.4 28.1a14.6 14.6 0 0 1 0-8.2l-7.8-6.1a24 24 0 0 0 0 20.4l7.8-6.1z"/><path fill="#34A853" d="M24 47.5c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2 1.4-4.7 2.4-8.3 2.4-6.3 0-11.7-4.2-13.6-10l-7.8 6.1C6.5 42.1 14.6 47.5 24 47.5z"/></svg>
-            使用 Google 继续
-          </button>
-
-          <p id="auth-status" class="status" role="status" aria-live="polite"></p>
-        </div>
-      </section>
-
-      <section id="downloads" aria-labelledby="dl-title">
-        <div class="dl-heading">
-          <div>
-            <p class="section-kicker">DESKTOP CLIENT</p>
-            <h2 id="dl-title">为你的电脑，选择南孚。</h2>
-            <p class="dl-version">当前版本 <b id="dl-version">—</b></p>
-          </div>
-          <div class="account" id="account-box" hidden>
-            <span class="account-dot" aria-hidden="true"></span>
-            <span id="account-email"></span>
-            <button id="logout" class="secondary" type="button">退出</button>
-          </div>
-        </div>
-        <div id="file-list" class="file-grid"></div>
-        <p id="file-note" class="file-note" hidden>安装包正在签名打包，开放后此页会直接出现下载按钮</p>
-        <p id="quota" class="quota" hidden></p>
-        <div class="note">
-          <span aria-hidden="true">◇</span>
-          <p>安装前请先退出旧版本南孚。覆盖安装不会删除已有环境，但仍建议先在应用内导出备份。</p>
-        </div>
-      </section>
-
-      <p id="boot" class="status">正在检查登录状态…</p>
-    </section>
-
-    <section id="faq" class="section">
-      <p class="section-kicker">FAQ</p>
-      <h2 class="section-title">常见问题</h2>
-      <div class="faq">
-        <details><summary>“窗口”是什么？</summary><p>一个窗口就是一套独立的浏览器环境，相当于一台虚拟出来的干净电脑。你开多少个窗口，就能同时管理多少个账号。</p></details>
-        <details><summary>注册送的 20 个窗口会过期吗？</summary><p>不会。额度长期有效，用完可以找管理员增加。</p></details>
-        <details><summary>下载需要注册吗？</summary><p>不需要。选好系统直接下载即可；注册只用于在客户端里登录、创建窗口和分配额度。</p></details>
-        <details><summary>支持哪些系统？</summary><p>Windows 10 / 11（x64），macOS 12 及以上（Apple 芯片与 Intel 都有对应安装包）。</p></details>
-        <details><summary>换电脑后环境还在吗？</summary><p>环境数据默认保存在本机，可以用环境导出功能整体迁移到新电脑。请勿在未备份时卸载。</p></details>
-        <details><summary>以后会换域名吗？</summary><p>会。域名是入口，账号和数据都独立存放，换域名不影响已注册账号，只需重新从新地址登录。</p></details>
-      </div>
-    </section>
-
-    <div class="bottom-line"><span>ISOLATED. CONSISTENT. YOURS.</span><span>环境隔离 · 稳定如初</span></div>
-  </main>
+      <p class="hint">适用于 Windows 64 位系统</p>
+    </div>
+  </div>
 
   <footer>
-    <span>© 南孚 NANFU</span>
-    <span>桌面浏览器 · 内测中</span>
+    © 2026 南孚浏览器
   </footer>
-</div>
 </body>
 </html>
