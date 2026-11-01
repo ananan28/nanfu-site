@@ -117,6 +117,9 @@
     margin-top: 8px;
   }
   .btn:hover { background: #1c47b8; transform: translateY(-2px); }
+  .btn.disabled { background: #2a3352; color: var(--muted); cursor: default; pointer-events: none; transform: none; }
+  .download-card + .download-card { margin-top: 18px; }
+  .download-card.mac { background: linear-gradient(135deg, #1d2340, #161d30); }
   .hint { margin-top: 16px; font-size: 13px; color: var(--muted); }
   footer {
     text-align: center;
@@ -159,11 +162,18 @@
 
   <div class="download">
     <div class="download-card">
-      <div class="version">版本 0.1.0-beta.72 · Windows x64</div>
+      <div class="version">版本 0.1.0-beta.73 · Windows x64</div>
       <div>
-        <a class="btn" href="https://dl.xzckfn.eu.cc/nanfu/0.1.0-beta.72/win-x64/%E5%8D%97%E5%AD%9A%E6%B5%8F%E8%A7%88%E5%99%A8_0.1.0-beta.72_x64-setup.exe">立即下载</a>
+        <a class="btn" href="https://dl.xzckfn.eu.cc/nanfu/0.1.0-beta.73/win-x64/%E5%8D%97%E5%AD%9A%E6%B5%8F%E8%A7%88%E5%99%A8_0.1.0-beta.73_x64-setup.exe">立即下载</a>
       </div>
-      <p class="hint">适用于 Windows 64 位系统</p>
+      <p class="hint">适用于 Windows 10 / 11 64 位系统 · 安装包约 204MB</p>
+    </div>
+    <div class="download-card mac">
+      <div class="version">版本 0.1.0-beta.73 · macOS</div>
+      <div>
+        <span class="btn disabled">macOS 版即将上线</span>
+      </div>
+      <p class="hint">Apple 芯片（M1 / M2 / M3 / M4）· .dmg 安装包 · 功能与 Windows 版一致</p>
     </div>
   </div>
 
